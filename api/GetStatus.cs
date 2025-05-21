@@ -23,7 +23,7 @@ namespace api
         {
             _logger = logger;
             _config = config;
-            _sampleResponsePath = "healthmodel_sample.json";
+            _sampleResponsePath = "sample_data/healthmodel_sample.json";
             _httpClient = new HttpClient();
             // Use explicit configuration for local environment detection
             _isLocalEnvironment = _config["IsLocalEnvironment"]?.ToLowerInvariant() == "true";
@@ -90,7 +90,8 @@ namespace api
                     .Where(e => entityNames.Contains(e.name))
                     .Select(e => new ComponentStatus
                     {
-                        Name = e.displayName ?? e.name,
+                        Name = e.name,
+                        DisplayName = e.displayName,
                         Status = e.state == "Error" ? "Unhealthy" : e.state,
                         Description = $"Kind: {e.kind} - Impact: {e.impact}",
                         LastStatusChange = DateTime.Parse(e.lastTransitionTimeUtc ?? string.Empty)
