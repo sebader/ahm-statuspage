@@ -63,6 +63,18 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                     .status-table .component-name {
                         font-weight: 500;
                         color: #2c3e50;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .status-table .overall-status {
+                        font-weight: 600;
+                        color: #1a202c;
+                    }
+                    .status-table .overall-status-indicator {
+                        font-weight: 600;
+                    }
+                    .status-table .indented-status {
+                        padding-left: 24px;
                     }
                     .status-table .description {
                         color: #666;
@@ -97,9 +109,11 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                 <tbody>
                     {components.map((component, index) => (
                         <tr key={index}>
-                            <td className="component-name">{component.displayName || component.name}</td>
+                            <td className={`component-name ${index === 0 ? 'overall-status' : 'indented-status'}`}>
+                                {component.displayName || component.name}
+                            </td>
                             <td>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center' }} className={index === 0 ? 'overall-status-indicator' : ''}>
                                     <StatusIndicator status={component.status} />
                                     {component.status}
                                 </div>

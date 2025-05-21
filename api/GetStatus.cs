@@ -86,17 +86,34 @@ namespace api
                     return new StatusCodeResult(500);
                 }
 
-                // Filter and map entities to ComponentStatus
-                var statuses = response.healthModel.entities
-                    .Where(e => entityNames.Contains(e.name))
+                // Get the root entity and other configured entities
+                var rootEntity = response.healthModel.entities
+                    .FirstOrDefault(e => e.kind == "System_HealthModelRoot");
+                
+                var statuses = new List<ComponentStatus>();
+
+                // Add root entity first if found
+                if (rootEntity != null)
+                {
+                    statuses.Add(new ComponentStatus
+                    {
+                        Name = rootEntity.name,
+                        DisplayName = "System health",
+                        Status = StatusUtils.NormalizeStatus(rootEntity.state),
+                        Description = $"Kind: {rootEntity.kind} - Impact: {rootEntity.impact}"
+                    });
+                }
+
+                // Add other configured entities
+                statuses.AddRange(response.healthModel.entities
+                    .Where(e => entityNames.Contains(e.name) && e.kind != "System_HealthModelRoot")
                     .Select(e => new ComponentStatus
                     {
                         Name = e.name,
                         DisplayName = e.displayName,
                         Status = StatusUtils.NormalizeStatus(e.state),
                         Description = $"Kind: {e.kind} - Impact: {e.impact}"
-                    })
-                    .ToList();
+                    }));
 
                 return new OkObjectResult(statuses);
             }
