@@ -46,7 +46,7 @@ namespace api
                 }
 
                 HealthEngineResponse response;
-                
+
                 if (_isLocalEnvironment)
                 {
                     // Use sample data for local development
@@ -56,10 +56,10 @@ namespace api
                 else
                 {
                     // Get token using managed identity
-                    var managedIdentityClientId = _config["MANAGED_IDENTITY_CLIENT_ID"];
-                    var credential = !string.IsNullOrEmpty(managedIdentityClientId)
-                        ? new ManagedIdentityCredential(managedIdentityClientId)
-                        : new DefaultAzureCredential();
+                    var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+                    {
+                        ManagedIdentityClientId = _config["MANAGED_IDENTITY_CLIENT_ID"]
+                    });
                     var token = await credential.GetTokenAsync(new TokenRequestContext(["https://data.healthmodels.azure.com/.default"]));
 
                     // Get the host from configuration
