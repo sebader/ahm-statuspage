@@ -25,7 +25,8 @@ namespace api
             _config = config;
             _sampleResponsePath = "sample_response_from_healthengine.json";
             _httpClient = new HttpClient();
-            _isLocalEnvironment = string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")); // Azure-specific environment variable
+            // Use explicit configuration for local environment detection
+            _isLocalEnvironment = _config["IsLocalEnvironment"]?.ToLowerInvariant() == "true";
         }
 
         [Function("GetStatus")]
