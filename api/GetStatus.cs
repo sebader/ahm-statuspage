@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Azure.Core;
+using Azure.Identity;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
@@ -16,16 +21,20 @@ namespace api
         private readonly ILogger<GetStatus> _logger;
         private readonly IConfiguration _config;
         private readonly string _sampleResponsePath;
+        private readonly HttpClient _httpClient;
+        private readonly bool _isLocalEnvironment;
 
         public GetStatus(ILogger<GetStatus> logger, IConfiguration config)
         {
             _logger = logger;
             _config = config;
             _sampleResponsePath = "sample_response_from_healthengine.json";
+            _httpClient = new HttpClient();
+            _isLocalEnvironment = string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")); // Azure-specific environment variable
         }
 
         [Function("GetStatus")]
-        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
         {
             _logger.LogInformation("Processing status request");
 
@@ -40,9 +49,36 @@ namespace api
                     return new BadRequestObjectResult("No entity names configured");
                 }
 
-                // Read and parse the health engine response
-                var jsonContent = System.IO.File.ReadAllText(_sampleResponsePath);
-                var response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent);
+                HealthEngineResponse response;
+                
+                if (_isLocalEnvironment)
+                {
+                    // Use sample data for local development
+                    var jsonContent = System.IO.File.ReadAllText(_sampleResponsePath);
+                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent);
+                }
+                else
+                {
+                    // Get token using managed identity
+                    var credential = new DefaultAzureCredential();
+                    var token = await credential.GetTokenAsync(new TokenRequestContext(new[] { "https://data.healthmodels.azure.com/.default" }));
+
+                    // Get the host from configuration
+                    var healthModelsHost = _config["HealthModelsHost"];
+                    if (string.IsNullOrEmpty(healthModelsHost))
+                    {
+                        throw new InvalidOperationException("HealthModelsHost configuration is missing");
+                    }
+
+                    // Make the API call
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
+                    var apiUrl = $"{healthModelsHost}/api/views/default/v2/query";
+                    var apiResponse = await _httpClient.GetAsync(apiUrl);
+                    apiResponse.EnsureSuccessStatusCode();
+
+                    var jsonContent = await apiResponse.Content.ReadAsStringAsync();
+                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent);
+                }
 
                 if (response?.healthModel?.entities == null)
                 {
