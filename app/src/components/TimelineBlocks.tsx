@@ -3,7 +3,7 @@ import { EntityHistory } from '../types/ComponentStatus';
 
 type TimelineBlocksProps = {
     history: EntityHistory;
-    blockSize: 30 | 60; // minutes
+    blockSize: 15 | 30 | 60; // minutes
 };
 
 const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) => {

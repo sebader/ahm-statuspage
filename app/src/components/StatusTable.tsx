@@ -109,7 +109,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                                 {loadingHistory[component.name] ? (
                                     <div className="loading-placeholder" />
                                 ) : entityHistories[component.name] ? (
-                                    <TimelineBlocks history={entityHistories[component.name]} blockSize={30} />
+                                    <TimelineBlocks history={entityHistories[component.name]} blockSize={15} />
                                 ) : (
                                     "No history data available"
                                 )}
