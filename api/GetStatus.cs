@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Functions.Worker;
@@ -54,14 +49,14 @@ namespace api
                 if (_isLocalEnvironment)
                 {
                     // Use sample data for local development
-                    var jsonContent = System.IO.File.ReadAllText(_sampleResponsePath);
-                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent);
+                    var jsonContent = await File.ReadAllTextAsync(_sampleResponsePath);
+                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent) ?? throw new InvalidOperationException();
                 }
                 else
                 {
                     // Get token using managed identity
                     var credential = new DefaultAzureCredential();
-                    var token = await credential.GetTokenAsync(new TokenRequestContext(new[] { "https://data.healthmodels.azure.com/.default" }));
+                    var token = await credential.GetTokenAsync(new TokenRequestContext(["https://data.healthmodels.azure.com/.default"]));
 
                     // Get the host from configuration
                     var healthModelsHost = _config["HealthModelsHost"];
@@ -77,11 +72,12 @@ namespace api
                     apiResponse.EnsureSuccessStatusCode();
 
                     var jsonContent = await apiResponse.Content.ReadAsStringAsync();
-                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent);
+                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent) ?? throw new InvalidOperationException();
                 }
 
-                if (response?.healthModel?.entities == null)
+                if (response.healthModel.entities == null)
                 {
+                    _logger.LogError("No entities found in the response");
                     return new StatusCodeResult(500);
                 }
 
@@ -90,10 +86,10 @@ namespace api
                     .Where(e => entityNames.Contains(e.name))
                     .Select(e => new ComponentStatus
                     {
-                        Name = e.displayName,
+                        Name = e.displayName ?? e.name,
                         Status = e.state,
-                        Description = $"{e.kind} - Impact: {e.impact}",
-                        LastUpdated = DateTime.Parse(e.lastTransitionTimeUtc)
+                        Description = $"Kind: {e.kind} - Impact: {e.impact}",
+                        LastUpdated = DateTime.Parse(e.lastTransitionTimeUtc ?? string.Empty)
                     })
                     .ToList();
 

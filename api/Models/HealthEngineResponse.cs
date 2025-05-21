@@ -1,93 +1,91 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Api.Models
 {
-    public class HealthEngineResponse
+    public record HealthEngineResponse
     {
         [JsonPropertyName("healthModel")]
-        public HealthModel healthModel { get; set; }
+        public required HealthModel healthModel { get; set; }
 
         [JsonPropertyName("metadata")]
-        public Metadata metadata { get; set; }
+        public Metadata? metadata { get; set; }
 
         [JsonPropertyName("errors")]
-        public object errors { get; set; }
+        public object? errors { get; set; }
     }
 
-    public class HealthModel
+    public record HealthModel
     {
         [JsonPropertyName("entities")]
-        public List<Entity> entities { get; set; }
+        public List<Entity>? entities { get; set; }
 
         [JsonPropertyName("relationships")]
-        public List<Relationship> relationships { get; set; }
+        public List<Relationship>? relationships { get; set; }
     }
 
-    public class Entity
+    public record Entity
     {
         [JsonPropertyName("name")]
-        public string name { get; set; }
+        public required string name { get; set; }
 
         [JsonPropertyName("kind")]
-        public string kind { get; set; }
+        public required string kind { get; set; }
 
         [JsonPropertyName("locationId")]
-        public string locationId { get; set; }
+        public string? locationId { get; set; }
 
         [JsonPropertyName("displayName")]
-        public string displayName { get; set; }
+        public string? displayName { get; set; }
 
         [JsonPropertyName("state")]
-        public string state { get; set; }
+        public required string state { get; set; }
 
         [JsonPropertyName("createdTime")]
-        public string createdTime { get; set; }
+        public required string createdTime { get; set; }
 
         [JsonPropertyName("lastTransitionTimeUtc")]
-        public string lastTransitionTimeUtc { get; set; }
+        public string? lastTransitionTimeUtc { get; set; }
 
         [JsonPropertyName("deletedTime")]
-        public string deletedTime { get; set; }
+        public string? deletedTime { get; set; }
 
         [JsonPropertyName("labels")]
-        public Dictionary<string, string> labels { get; set; }
+        public Dictionary<string, string>? labels { get; set; }
 
         [JsonPropertyName("impact")]
-        public string impact { get; set; }
+        public required string impact { get; set; }
     }
 
-    public class Relationship
+    public record Relationship
     {
         [JsonPropertyName("name")]
-        public string name { get; set; }
+        public required string name { get; set; }
 
         [JsonPropertyName("kind")]
-        public string kind { get; set; }
+        public string? kind { get; set; }
 
         [JsonPropertyName("displayName")]
-        public string displayName { get; set; }
+        public string? displayName { get; set; }
 
         [JsonPropertyName("from")]
-        public string from { get; set; }
+        public required string from { get; set; }
 
         [JsonPropertyName("to")]
-        public string to { get; set; }
+        public required string to { get; set; }
 
         [JsonPropertyName("createdTime")]
-        public string createdTime { get; set; }
+        public required string createdTime { get; set; }
 
         [JsonPropertyName("deletedTime")]
-        public string deletedTime { get; set; }
+        public string? deletedTime { get; set; }
     }
 
-    public class Metadata
+    public record Metadata
     {
         [JsonPropertyName("timeStampUtc")]
-        public string timeStampUtc { get; set; }
+        public string? timeStampUtc { get; set; }
 
         [JsonPropertyName("totalServerTimeInMs")]
-        public int totalServerTimeInMs { get; set; }
+        public int? totalServerTimeInMs { get; set; }
     }
 }
