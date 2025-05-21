@@ -4,7 +4,7 @@
     "ahm-statuspage": {
       "appLocation": "app",
       "apiLocation": "api",
-      "outputLocation": "output",
+      "outputLocation": "build",
       "apiLanguage": "dotnetisolated",
       "apiVersion": "8.0",
       "appBuildCommand": "npm run build",

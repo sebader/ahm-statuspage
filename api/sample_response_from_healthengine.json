@@ -1,0 +1,223 @@
+{
+	"healthModel": {
+		"entities": [
+			{
+				"name": "02dab558-6f7c-49e6-8981-b8654b78fee3",
+				"kind": "Generic",
+				"locationId": null,
+				"displayName": "UI",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T17:59:39+00:00",
+				"lastTransitionTimeUtc": "2025-05-21T15:38:46+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "seb-canadian-chaos",
+				"kind": "System_HealthModelRoot",
+				"locationId": null,
+				"displayName": "seb-canadian-chaos",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T16:12:12+00:00",
+				"lastTransitionTimeUtc": "2025-05-21T15:38:46+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "6ddacd01-c4b7-42c7-85cb-adc1ae17c278",
+				"kind": "Default",
+				"locationId": null,
+				"displayName": "kvcplabeuno1",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T18:21:36+00:00",
+				"lastTransitionTimeUtc": "2025-05-20T18:25:33+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "d313f007-ce6f-4765-b41e-799076e02a9e",
+				"kind": "Default",
+				"locationId": null,
+				"displayName": "afd-cp-lab-euno1",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T18:21:36+00:00",
+				"lastTransitionTimeUtc": "2025-05-21T04:40:17+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"kind": "Generic",
+				"locationId": null,
+				"displayName": "API layer",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T16:12:44+00:00",
+				"lastTransitionTimeUtc": "2025-05-21T15:38:46+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "5a15f7c2-5237-45a2-a0d3-c69889e3ca2c",
+				"kind": "Default",
+				"locationId": null,
+				"displayName": "acrcplabeuno1",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T18:21:36+00:00",
+				"lastTransitionTimeUtc": "2025-05-20T18:24:57+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "68bab77a-6c06-4e53-bbd9-2f5fa3684330",
+				"kind": "ResourceId (AHM=seb-canadian-chaos-abbsa5hxasb2csbn MonitorId=37c7aad0-1b6c-92a0-b3b4-664818c8ebc5)",
+				"locationId": null,
+				"displayName": "ahm-testing-aks",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T16:14:38+00:00",
+				"lastTransitionTimeUtc": "2025-05-21T15:38:46+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "5bd07a55-fb4b-414c-bf6f-29c513873109",
+				"kind": "Default",
+				"locationId": null,
+				"displayName": "cosmos-cp-lab-euno1-01",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T18:04:51+00:00",
+				"lastTransitionTimeUtc": "2025-05-20T18:04:55+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "c7a9fa3f-4bf6-4e44-814c-48c0569069b3",
+				"kind": "ResourceId (AHM=seb-canadian-chaos-abbsa5hxasb2csbn MonitorId=b4a38538-4d9d-1eb6-9343-1cf8164edc7a)",
+				"locationId": null,
+				"displayName": "sb-cp-lab-ukso1",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T17:58:41+00:00",
+				"lastTransitionTimeUtc": "2025-05-20T18:04:45+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			},
+			{
+				"name": "79a5bb3e-52d8-466a-bf55-ea8a19c6cdd3",
+				"kind": "Default",
+				"locationId": null,
+				"displayName": "apim-cp-lab-euno1",
+				"state": "Healthy",
+				"createdTime": "2025-05-20T18:21:36+00:00",
+				"lastTransitionTimeUtc": "2025-05-20T18:26:18+00:00",
+				"deletedTime": null,
+				"labels": {},
+				"impact": "Standard"
+			}
+		],
+		"relationships": [
+			{
+				"name": "47f7e78b-1d73-4ae6-8b40-03b4c976a40e",
+				"kind": "Child",
+				"displayName": null,
+				"from": "02dab558-6f7c-49e6-8981-b8654b78fee3",
+				"to": "68bab77a-6c06-4e53-bbd9-2f5fa3684330",
+				"createdTime": "2025-05-20T18:00:08+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "5ed34607-a778-4e1f-8827-0195f1a070ae",
+				"kind": "Child",
+				"displayName": null,
+				"from": "02dab558-6f7c-49e6-8981-b8654b78fee3",
+				"to": "d313f007-ce6f-4765-b41e-799076e02a9e",
+				"createdTime": "2025-05-20T18:23:07+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "dfb83111-5642-415c-b52a-0425e3f14763",
+				"kind": "Child",
+				"displayName": null,
+				"from": "seb-canadian-chaos",
+				"to": "02dab558-6f7c-49e6-8981-b8654b78fee3",
+				"createdTime": "2025-05-20T18:00:08+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "43599f7a-1532-4993-b195-427efdef5b77",
+				"kind": "Child",
+				"displayName": null,
+				"from": "seb-canadian-chaos",
+				"to": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"createdTime": "2025-05-20T16:14:48+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "5305ecaf-9c4f-4997-95ad-a6f70cab7c11",
+				"kind": "Child",
+				"displayName": null,
+				"from": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"to": "68bab77a-6c06-4e53-bbd9-2f5fa3684330",
+				"createdTime": "2025-05-20T16:14:48+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "cde3be37-a20f-4cb9-a06c-45974d44b121",
+				"kind": "Child",
+				"displayName": null,
+				"from": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"to": "c7a9fa3f-4bf6-4e44-814c-48c0569069b3",
+				"createdTime": "2025-05-20T18:00:08+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "6820fd2b-9ecd-48c0-b537-bbc76115581c",
+				"kind": "Child",
+				"displayName": null,
+				"from": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"to": "79a5bb3e-52d8-466a-bf55-ea8a19c6cdd3",
+				"createdTime": "2025-05-20T18:23:07+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "45b457bb-b4bb-4bd4-90a5-fb5de464b944",
+				"kind": "Child",
+				"displayName": null,
+				"from": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"to": "6ddacd01-c4b7-42c7-85cb-adc1ae17c278",
+				"createdTime": "2025-05-20T18:23:08+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "62a6a86a-759e-403e-88f9-831e896976fd",
+				"kind": "Child",
+				"displayName": null,
+				"from": "4e23c82a-33ce-4a4e-a820-93824ee3d49f",
+				"to": "5bd07a55-fb4b-414c-bf6f-29c513873109",
+				"createdTime": "2025-05-20T18:05:14+00:00",
+				"deletedTime": null
+			},
+			{
+				"name": "57338682-6e18-49b8-9c50-451fa1617944",
+				"kind": "Child",
+				"displayName": null,
+				"from": "68bab77a-6c06-4e53-bbd9-2f5fa3684330",
+				"to": "5a15f7c2-5237-45a2-a0d3-c69889e3ca2c",
+				"createdTime": "2025-05-20T18:23:08+00:00",
+				"deletedTime": null
+			}
+		]
+	},
+	"metadata": {
+		"timeStampUtc": "2025-05-21T15:56:09.2165103+00:00",
+		"totalServerTimeInMs": 101
+	},
+	"errors": null
+}
