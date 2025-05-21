@@ -1,14 +1,9 @@
-using System.Text.Json;
-using System.Net.Http.Headers;
-using Azure.Core;
-using Azure.Identity;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Api.Models;
-using api.Utils;
+using api.Services;
 
 namespace api
 {
@@ -16,18 +11,13 @@ namespace api
     {
         private readonly ILogger<GetStatus> _logger;
         private readonly IConfiguration _config;
-        private readonly string _sampleResponsePath;
-        private readonly HttpClient _httpClient;
-        private readonly bool _isLocalEnvironment;
+        private readonly IHealthModelService _healthModelService;
 
-        public GetStatus(ILogger<GetStatus> logger, IConfiguration config)
+        public GetStatus(ILogger<GetStatus> logger, IConfiguration config, IHealthModelService healthModelService)
         {
             _logger = logger;
             _config = config;
-            _sampleResponsePath = "sample_data/healthmodel_sample.json";
-            _httpClient = new HttpClient();
-            // Use explicit configuration for local environment detection
-            _isLocalEnvironment = _config["IsLocalEnvironment"]?.ToLowerInvariant() == "true";
+            _healthModelService = healthModelService;
         }
 
         [Function("GetStatus")]
@@ -46,74 +36,7 @@ namespace api
                     return new BadRequestObjectResult("No entity names configured");
                 }
 
-                HealthEngineResponse response;
-
-                if (_isLocalEnvironment)
-                {
-                    // Use sample data for local development
-                    var jsonContent = await File.ReadAllTextAsync(_sampleResponsePath);
-                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent) ?? throw new InvalidOperationException();
-                }
-                else
-                {
-                    // Get token using managed identity
-                    var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
-                    {
-                        ManagedIdentityClientId = _config["MANAGED_IDENTITY_CLIENT_ID"]
-                    });
-                    var token = await credential.GetTokenAsync(new TokenRequestContext(["https://data.healthmodels.azure.com/.default"]));
-
-                    // Get the host from configuration
-                    var healthModelsHost = _config["HealthModelsHost"];
-                    if (string.IsNullOrEmpty(healthModelsHost))
-                    {
-                        throw new InvalidOperationException("HealthModelsHost configuration is missing");
-                    }
-
-                    // Make the API call
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
-                    var apiUrl = $"{healthModelsHost}/api/views/default/v2/query";
-                    var apiResponse = await _httpClient.GetAsync(apiUrl);
-                    apiResponse.EnsureSuccessStatusCode();
-
-                    var jsonContent = await apiResponse.Content.ReadAsStringAsync();
-                    response = JsonSerializer.Deserialize<HealthEngineResponse>(jsonContent) ?? throw new InvalidOperationException();
-                }
-
-                if (response.healthModel.entities == null)
-                {
-                    _logger.LogError("No entities found in the response");
-                    return new StatusCodeResult(500);
-                }
-
-                // Get the root entity and other configured entities
-                var rootEntity = response.healthModel.entities
-                    .FirstOrDefault(e => e.kind == "System_HealthModelRoot");
-                
-                var statuses = new List<ComponentStatus>();
-
-                // Add root entity first if found
-                if (rootEntity != null)
-                {
-                    statuses.Add(new ComponentStatus
-                    {
-                        Name = rootEntity.name,
-                        DisplayName = "System health",
-                        Status = StatusUtils.NormalizeStatus(rootEntity.state),
-                        Description = $"Kind: {rootEntity.kind} - Impact: {rootEntity.impact}"
-                    });
-                }
-
-                // Add other configured entities
-                statuses.AddRange(response.healthModel.entities
-                    .Where(e => entityNames.Contains(e.name) && e.kind != "System_HealthModelRoot")
-                    .Select(e => new ComponentStatus
-                    {
-                        Name = e.name,
-                        DisplayName = e.displayName,
-                        Status = StatusUtils.NormalizeStatus(e.state),
-                        Description = $"Kind: {e.kind} - Impact: {e.impact}"
-                    }));
+                var statuses = await _healthModelService.GetStatusAsync(entityNames);
 
                 return new OkObjectResult(statuses);
             }
