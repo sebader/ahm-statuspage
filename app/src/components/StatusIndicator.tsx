@@ -8,11 +8,11 @@ type StatusIndicatorProps = {
 const StatusIndicator: React.FC<StatusIndicatorProps> = ({ status }) => {
     const getStatusColor = () => {
         switch (status) {
-            case 'Operational':
+            case 'Healthy':
                 return '#2ecc71'; // green
             case 'Degraded':
                 return '#f1c40f'; // yellow
-            case 'Outage':
+            case 'Error':
                 return '#e74c3c'; // red
             default:
                 return '#95a5a6'; // grey

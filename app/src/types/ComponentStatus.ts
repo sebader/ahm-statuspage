@@ -1,6 +1,6 @@
 export type ComponentStatus = {
     name: string;
-    status: 'Operational' | 'Degraded' | 'Outage';
+    status: 'Healthy' | 'Degraded' | 'Error' | 'Unknown';
     description: string;
     lastUpdated: string;
 };
