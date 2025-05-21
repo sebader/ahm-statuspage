@@ -55,7 +55,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                         <th>Component</th>
                         <th>Status</th>
                         <th>Description</th>
-                        <th>Last Updated</th>
+                        <th>Last Status Change</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +70,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                             </td>
                             <td className="description">{component.description}</td>
                             <td className="timestamp">
-                                {new Date(component.lastUpdated).toLocaleString()}
+                                {new Date(component.lastStatusChange).toLocaleString()}
                             </td>
                         </tr>
                     ))}
