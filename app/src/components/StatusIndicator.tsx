@@ -12,7 +12,7 @@ const StatusIndicator: React.FC<StatusIndicatorProps> = ({ status }) => {
                 return '#2ecc71'; // green
             case 'Degraded':
                 return '#f1c40f'; // yellow
-            case 'Error':
+            case 'Unhealthy':
                 return '#e74c3c'; // red
             default:
                 return '#95a5a6'; // grey

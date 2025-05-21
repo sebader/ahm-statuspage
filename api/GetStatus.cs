@@ -87,7 +87,7 @@ namespace api
                     .Select(e => new ComponentStatus
                     {
                         Name = e.displayName ?? e.name,
-                        Status = e.state,
+                        Status = e.state == "Error" ? "Unhealthy" : e.state,
                         Description = $"Kind: {e.kind} - Impact: {e.impact}",
                         LastUpdated = DateTime.Parse(e.lastTransitionTimeUtc ?? string.Empty)
                     })

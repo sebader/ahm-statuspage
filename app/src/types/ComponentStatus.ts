@@ -1,6 +1,6 @@
 export type ComponentStatus = {
     name: string;
-    status: 'Healthy' | 'Degraded' | 'Error' | 'Unknown';
+    status: 'Healthy' | 'Degraded' | 'Unhealthy' | 'Unknown';
     description: string;
     lastUpdated: string;
 };
