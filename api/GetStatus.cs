@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Api.Models;
+using api.Utils;
 
 namespace api
 {
@@ -92,7 +93,7 @@ namespace api
                     {
                         Name = e.name,
                         DisplayName = e.displayName,
-                        Status = e.state == "Error" ? "Unhealthy" : e.state,
+                        Status = StatusUtils.NormalizeStatus(e.state),
                         Description = $"Kind: {e.kind} - Impact: {e.impact}",
                         LastStatusChange = DateTime.Parse(e.lastTransitionTimeUtc ?? string.Empty)
                     })

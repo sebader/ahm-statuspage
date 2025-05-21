@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Api.Models;
 using System.Web;
+using api.Utils;
 
 namespace api
 {
@@ -54,8 +55,8 @@ namespace api
                     // Map Error states to Unhealthy for consistency
                     foreach (var transition in response.History.Transitions)
                     {
-                        transition.PreviousState = transition.PreviousState == "Error" ? "Unhealthy" : transition.PreviousState;
-                        transition.NewState = transition.NewState == "Error" ? "Unhealthy" : transition.NewState;
+                        transition.PreviousState = StatusUtils.NormalizeStatus(transition.PreviousState);
+                        transition.NewState = StatusUtils.NormalizeStatus(transition.NewState);
                     }
                 }
                 else
@@ -86,8 +87,8 @@ namespace api
                     // Map Error states to Unhealthy for consistency
                     foreach (var transition in response.History.Transitions)
                     {
-                        transition.PreviousState = transition.PreviousState == "Error" ? "Unhealthy" : transition.PreviousState;
-                        transition.NewState = transition.NewState == "Error" ? "Unhealthy" : transition.NewState;
+                        transition.PreviousState = StatusUtils.NormalizeStatus(transition.PreviousState);
+                        transition.NewState = StatusUtils.NormalizeStatus(transition.NewState);
                     }
                 }
 
