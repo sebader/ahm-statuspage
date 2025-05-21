@@ -56,7 +56,10 @@ namespace api
                 else
                 {
                     // Get token using managed identity
-                    var credential = new DefaultAzureCredential();
+                    var managedIdentityClientId = _config["MANAGED_IDENTITY_CLIENT_ID"];
+                    var credential = !string.IsNullOrEmpty(managedIdentityClientId)
+                        ? new ManagedIdentityCredential(managedIdentityClientId)
+                        : new DefaultAzureCredential();
                     var token = await credential.GetTokenAsync(new TokenRequestContext(["https://data.healthmodels.azure.com/.default"]));
 
                     // Get the host from configuration
