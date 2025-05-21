@@ -1,0 +1,11 @@
+{
+  "appName": "eShop on Containers",
+  "companyName": "Contoso Inc.",
+  "pageHeader": "",
+  "pageSubheader": "Current status of our services",
+  "theme": {
+    "primaryColor": "#2c3e50",
+    "backgroundColor": "#f5f6fa",
+    "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+  }
+}

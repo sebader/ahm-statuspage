@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import StatusTable from './components/StatusTable';
 import { ComponentStatus } from './types/ComponentStatus';
+import { AppConfig } from './types/AppConfig';
+import config from './config/app-config.json';
 import './App.css';
 
 function App() {
+  const appConfig = config as AppConfig;
   const [components, setComponents] = useState<ComponentStatus[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,8 +38,8 @@ function App() {
           body {
             margin: 0;
             padding: 0;
-            background-color: #f5f6fa;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: ${appConfig.theme.backgroundColor};
+            font-family: ${appConfig.theme.fontFamily};
           }
           .App {
             padding: 2rem;
@@ -47,10 +50,25 @@ function App() {
             margin-bottom: 2rem;
             text-align: center;
           }
+          .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+          }
+          .company-name {
+            color: #666;
+            font-size: 0.9rem;
+          }
           .header h1 {
-            color: #2c3e50;
+            color: ${appConfig.theme.primaryColor};
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+          }
+          .header h2 {
+            color: ${appConfig.theme.primaryColor};
+            font-size: 2rem;
+            margin: 1rem 0 0.5rem;
           }
           .header p {
             color: #666;
@@ -73,8 +91,9 @@ function App() {
         `}
       </style>
       <div className="header">
-        <h1>System Status</h1>
-        <p>Current status of our services and components</p>
+        <h1>{appConfig.appName}</h1>
+        <h2>{appConfig.pageHeader}</h2>
+        <p>{appConfig.pageSubheader}</p>
       </div>
       {loading ? (
         <div className="loading">Loading status information...</div>
@@ -83,6 +102,9 @@ function App() {
       ) : (
         <StatusTable components={components} />
       )}
+      <div className="footer">
+        <div className="company-name">© {new Date().getFullYear()} {appConfig.companyName}</div>
+      </div>
     </div>
   );
 }
