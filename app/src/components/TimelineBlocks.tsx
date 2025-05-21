@@ -20,29 +20,49 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
         }
     };
 
+    const getWorstStatus = (statuses: string[]): string => {
+        if (statuses.includes('Unhealthy')) return 'Unhealthy';
+        if (statuses.includes('Degraded')) return 'Degraded';
+        if (statuses.includes('Healthy')) return 'Healthy';
+        return 'Unknown';
+    };
+
     const getLast24HoursBlocks = () => {
         const now = new Date();
         const blocks: { startTime: Date; endTime: Date; status: string }[] = [];
-        const lastTransition = history.history.transitions[history.history.transitions.length - 1];
-        let currentStatus = lastTransition.newState;
 
         // Generate blocks for the last 24 hours
         for (let i = 0; i < (24 * 60) / blockSize; i++) {
-            const blockTime = new Date(now.getTime() - (i * blockSize * 60 * 1000));
+            const blockEndTime = new Date(now.getTime() - (i * blockSize * 60 * 1000));
+            const blockStartTime = new Date(blockEndTime.getTime() - (blockSize * 60 * 1000));
             
-            // Find the status at this time by going through transitions backwards
+            // Find all states that occurred during this block's time window
+            const statesInBlock: string[] = [];
+            
+            // Add the state from the most recent transition before the block
+            let initialState = 'Unknown';
             for (let j = history.history.transitions.length - 1; j >= 0; j--) {
                 const transition = history.history.transitions[j];
                 const transitionTime = new Date(transition.occurrenceTimeUtc);
-                
-                if (blockTime >= transitionTime) {
-                    currentStatus = transition.newState;
+                if (transitionTime <= blockStartTime) {
+                    initialState = transition.newState;
                     break;
                 }
             }
-            
-            const blockEndTime = new Date(blockTime.getTime() + (blockSize * 60 * 1000));
-            blocks.unshift({ startTime: blockTime, endTime: blockEndTime, status: currentStatus });
+            statesInBlock.push(initialState);
+
+            // Add states from all transitions within the block's time window
+            for (const transition of history.history.transitions) {
+                const transitionTime = new Date(transition.occurrenceTimeUtc);
+                if (transitionTime >= blockStartTime && transitionTime <= blockEndTime) {
+                    statesInBlock.push(transition.previousState);
+                    statesInBlock.push(transition.newState);
+                }
+            }
+
+            // Get the worst status from all states in this block
+            const worstStatus = getWorstStatus(statesInBlock);
+            blocks.unshift({ startTime: blockStartTime, endTime: blockEndTime, status: worstStatus });
         }
 
         return blocks;
