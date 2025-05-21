@@ -94,8 +94,7 @@ namespace api
                         Name = e.name,
                         DisplayName = e.displayName,
                         Status = StatusUtils.NormalizeStatus(e.state),
-                        Description = $"Kind: {e.kind} - Impact: {e.impact}",
-                        LastStatusChange = DateTime.Parse(e.lastTransitionTimeUtc ?? string.Empty)
+                        Description = $"Kind: {e.kind} - Impact: {e.impact}"
                     })
                     .ToList();
 

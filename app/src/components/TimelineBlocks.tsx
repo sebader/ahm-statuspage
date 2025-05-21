@@ -7,6 +7,13 @@ type TimelineBlocksProps = {
 };
 
 const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const tooltip = e.currentTarget.querySelector('.timeline-tooltip-wrapper') as HTMLElement;
+        if (tooltip) {
+            tooltip.style.left = `${e.clientX}px`;
+            tooltip.style.top = `${e.clientY}px`;
+        }
+    };
     const getStatusColor = (status: string): string => {
         switch (status) {
             case 'Healthy':
@@ -79,8 +86,8 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
                         gap: 2px;
                         height: 24px;
                         border-radius: 4px;
-                        overflow: visible;
                         position: relative;
+                        isolation: isolate;
                     }
                     .timeline-block {
                         flex: 1;
@@ -93,15 +100,16 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
                         background-color: rgba(255, 255, 255, 0.1);
                     }
                     .timeline-tooltip-wrapper {
-                        position: absolute;
-                        bottom: calc(100% + 10px);
-                        left: 50%;
-                        transform: translateX(-50%);
+                        position: fixed;
                         pointer-events: none;
                         width: max-content;
+                        z-index: 99999;
                     }
                     .timeline-tooltip {
                         background: rgba(0, 0, 0, 0.9);
+                        position: relative;
+                        transform: translate(-50%, -100%);
+                        margin-top: -10px;
                         color: white;
                         padding: 8px 12px;
                         border-radius: 6px;
@@ -125,6 +133,7 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
                     key={index}
                     className="timeline-block"
                     style={{ backgroundColor: getStatusColor(block.status) }}
+                    onMouseMove={handleMouseMove}
                 >
                     <div className="timeline-tooltip-wrapper">
                         <div className="timeline-tooltip">

@@ -39,7 +39,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                         background: white;
                         border-radius: 8px;
                         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                        overflow: hidden;
+                        position: relative;
                     }
                     .status-table table {
                         width: 100%;
@@ -92,7 +92,6 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                         <th>Component</th>
                         <th>Status</th>
                         <th>Last 24 Hours</th>
-                        <th>Last Status Change</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,7 +104,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                                     {component.status}
                                 </div>
                             </td>
-                            <td style={{ minWidth: '400px' }}>
+                            <td style={{ minWidth: '400px', position: 'relative' }}>
                                 {loadingHistory[component.name] ? (
                                     <div className="loading-placeholder" />
                                 ) : entityHistories[component.name] ? (
@@ -113,9 +112,6 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                                 ) : (
                                     "No history data available"
                                 )}
-                            </td>
-                            <td className="timestamp">
-                                {new Date(component.lastStatusChange).toLocaleString()}
                             </td>
                         </tr>
                     ))}

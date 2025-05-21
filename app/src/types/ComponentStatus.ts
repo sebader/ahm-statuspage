@@ -18,6 +18,5 @@ export type ComponentStatus = {
     displayName?: string;
     status: 'Healthy' | 'Degraded' | 'Unhealthy' | 'Unknown';
     description: string;
-    lastStatusChange: string;
     history?: EntityHistory;
 };
