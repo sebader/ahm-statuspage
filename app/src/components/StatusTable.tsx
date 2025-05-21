@@ -15,7 +15,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
         const fetchEntityHistory = async (entityName: string) => {
             try {
                 setLoadingHistory(prev => ({ ...prev, [entityName]: true }));
-                const response = await fetch(`/api/GetEntityHistory?entityName=${encodeURIComponent(entityName)}`);
+                const response = await fetch(`/api/history/${encodeURIComponent(entityName)}`);
                 if (!response.ok) throw new Error('Failed to fetch history');
                 const history: EntityHistory = await response.json();
                 setEntityHistories(prev => ({ ...prev, [entityName]: history }));

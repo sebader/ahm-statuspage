@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Api.Models
 {
-    public record HealthEngineResponse
+    public record HealthModelResponse
     {
         [JsonPropertyName("healthModel")]
         public required HealthModel healthModel { get; set; }

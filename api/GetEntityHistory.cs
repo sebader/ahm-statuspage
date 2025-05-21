@@ -18,18 +18,12 @@ namespace api
         }
 
         [Function("GetEntityHistory")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "history/{entityName}")] HttpRequest req, string entityName)
         {
-            _logger.LogInformation("Processing entity history request");
+            _logger.LogInformation("Processing entity history request for {EntityName}", entityName);
 
             try
             {
-                // Get entityName from query parameter
-                var entityName = req.Query["entityName"].ToString();
-                if (string.IsNullOrEmpty(entityName))
-                {
-                    return new BadRequestObjectResult("Entity name is required");
-                }
 
                 var response = await _healthModelService.GetEntityHistoryAsync(entityName);
                 return new OkObjectResult(response);

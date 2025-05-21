@@ -95,7 +95,7 @@ namespace api.Services
 
         public async Task<List<ComponentStatus>> GetStatusAsync(string[] entityNames)
         {
-            var response = await GetDataAsync<HealthEngineResponse>(
+            var response = await GetDataAsync<HealthModelResponse>(
                 _healthModelSamplePath,
                 "/api/views/default/v2/query"
             );
