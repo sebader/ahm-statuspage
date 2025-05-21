@@ -53,9 +53,9 @@ A status page application that displays service health information from Azure He
   "Values": {
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "EntityNames": "comma,separated,entity,ids",
-    "HealthModelsHost": "your-health-models-host",
-    "IsLocalEnvironment": "true"
+    "EntityNames": "comma,separated,entity,names",
+    "HealthModelsHost": "https://< your health model endpoint>.healthmodels.azure.com",
+    "IsLocalEnvironment": "true/false"
   }
 }
 ```
@@ -64,7 +64,7 @@ A status page application that displays service health information from Azure He
 
 1. **Prerequisites**
    - Node.js and npm
-   - .NET 6.0 SDK
+   - .NET 8.0 SDK
    - Azure Functions Core Tools
    - Azure Static Web Apps CLI
 
