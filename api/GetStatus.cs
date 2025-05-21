@@ -23,7 +23,7 @@ namespace api
         {
             _logger = logger;
             _config = config;
-            _sampleResponsePath = "sample_response_from_healthengine.json";
+            _sampleResponsePath = "healthmodel_sample.json";
             _httpClient = new HttpClient();
             // Use explicit configuration for local environment detection
             _isLocalEnvironment = _config["IsLocalEnvironment"]?.ToLowerInvariant() == "true";

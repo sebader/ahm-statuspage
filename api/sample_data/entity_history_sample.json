@@ -1,0 +1,217 @@
+{
+    "entityName": "68bab77a-6c06-4e53-bbd9-2f5fa3684330",
+    "history": {
+        "transitions": [
+            {
+                "previousState": "Unknown",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-20T16:17:32+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T16:21:32+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-20T16:22:32+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T18:02:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-20T18:03:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T18:12:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-20T18:13:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T18:33:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-20T18:34:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T18:43:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-20T18:44:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T18:51:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-20T18:52:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T19:01:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-20T19:02:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T19:10:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-20T19:11:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-20T19:20:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-20T19:21:33+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-21T01:15:37+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-21T01:25:37+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-21T01:26:37+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-21T15:27:46+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-21T15:28:46+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-21T15:37:46+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-21T15:38:46+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Healthy",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-21T19:05:48+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Error",
+                "occurrenceTimeUtc": "2025-05-21T19:06:48+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Error",
+                "newState": "Degraded",
+                "occurrenceTimeUtc": "2025-05-21T19:15:48+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+                "previousState": "Degraded",
+                "newState": "Healthy",
+                "occurrenceTimeUtc": "2025-05-21T19:16:48+00:00",
+                "labels": {},
+                "eventId": "00000000-0000-0000-0000-000000000000"
+            }
+        ]
+    }
+}
