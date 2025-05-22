@@ -75,10 +75,21 @@ function App() {
             font-size: 1.1rem;
             margin: 0;
           }
-          .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
+          @keyframes shimmer {
+            0% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.7;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+
+          .table-loading {
+            animation: shimmer 1.5s infinite ease-in-out;
+            pointer-events: none;
           }
           .error {
             background-color: #fff3f3;
@@ -119,12 +130,10 @@ function App() {
         <h2>{appConfig.pageHeader}</h2>
         <p>{appConfig.pageSubheader}</p>
       </div>
-      {loading ? (
-        <div className="loading">Loading status information...</div>
-      ) : error ? (
+      {error ? (
         <div className="error">{error}</div>
       ) : (
-        <div className="status-section">
+        <div className={`status-section ${loading ? 'table-loading' : ''}`}>
           <div className="status-header">
             <button 
               className="refresh-button" 
