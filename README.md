@@ -104,21 +104,7 @@ The application is designed to be deployed to Azure Static Web Apps with an Azur
 
 ### Running Locally with Static Web Apps CLI
 
-1. **Start the Frontend**
-   ```bash
-   cd app
-   npm install
-   npm run build   # Build the frontend
-   ```
-
-2. **Start the Backend**
-   ```bash
-   cd api
-   dotnet restore
-   func start     # Start the Functions API
-   ```
-
-3. **Run with Static Web Apps CLI**
+1. **Run with Static Web Apps CLI**
    ```bash
    # In the root directory
    swa start app/build --api-location api
