@@ -84,7 +84,7 @@ A status page application that displays service health information from Azure He
 
 4. **Configuration**
    - Update `app/src/config/app-config.json` with your branding
-   - Create `api/local.settings.json` with your AHM configuration
+   - Create `api/local.settings.json` with your AHM configuration for running the Function app locally
    - Configure entity IDs in the backend settings
 
 ## Deployment
@@ -94,11 +94,78 @@ The application is designed to be deployed to Azure Static Web Apps with an Azur
 1. **Backend API**: Deploys to Azure Functions
 2. **Frontend**: Deploys to Azure Static Web Apps
 
-## Development
+## Local Development
 
-- The frontend runs on `http://localhost:3000` by default
-- The backend API runs on `http://localhost:7071`
-- Use `swa start` for local testing with the Static Web Apps CLI
+### Prerequisites
+- Node.js and npm
+- .NET 8.0 SDK
+- Azure Functions Core Tools
+- Azure Static Web Apps CLI (`npm install -g @azure/static-web-apps-cli`)
+
+### Running Locally with Static Web Apps CLI
+
+1. **Start the Frontend**
+   ```bash
+   cd app
+   npm install
+   npm run build   # Build the frontend
+   ```
+
+2. **Start the Backend**
+   ```bash
+   cd api
+   dotnet restore
+   func start     # Start the Functions API
+   ```
+
+3. **Run with Static Web Apps CLI**
+   ```bash
+   # In the root directory
+   swa start app/build --api-location api
+   ```
+
+This will start the Static Web Apps CLI, serving your application at `http://localhost:4280`. The CLI provides a local development environment that closely mirrors the Azure Static Web Apps production environment.
+
+## Azure Deployment
+
+### 1. Azure Resources Setup
+
+1. **Create an Azure Function App**
+   - Create a new Function App in the Azure Portal
+   - Runtime stack: .NET 8 (LTS)
+   - Operating System: Windows or Linux
+   - Hosting: Plan type according to your needs
+
+2. **Configure Function App Settings**
+   Add the following application settings in the Azure Portal:
+   ```
+   AzureWebJobsStorage         : Your storage account connection string
+   FUNCTIONS_WORKER_RUNTIME    : dotnet-isolated
+   EntityNames                 : Your comma-separated entity names
+   HealthModelsHost           : Your AHM endpoint
+   IsLocalEnvironment         : false
+   ```
+
+3. **Create an Azure Static Web App**
+   - Create a new Static Web App in the Azure Portal
+   - SKU: Standard (required for custom Functions integration)
+   - Region: Choose based on your needs
+   - Source: Select your GitHub repository
+
+### 2. Link Function App to Static Web App
+
+1. Navigate to your Static Web App in the Azure Portal
+2. Go to "API" section
+3. Link your Function App as the backend API
+4. Update the GitHub Actions workflow files if needed
+
+### 3. Deploy
+
+The repository includes GitHub Actions workflows for automated deployment:
+- `.github/workflows/azure-static-web-apps-*.yml` for the Static Web App
+- `.github/workflows/azure-function-app_*.yml` for the Function App
+
+Simply push to your main branch to trigger deployment.
 
 ## Architecture
 
