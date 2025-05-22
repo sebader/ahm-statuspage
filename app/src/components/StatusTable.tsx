@@ -118,7 +118,7 @@ const StatusTable: React.FC<StatusTableProps> = ({ components }) => {
                                     {component.status}
                                 </div>
                             </td>
-                            <td style={{ minWidth: '400px', position: 'relative' }}>
+                            <td style={{ minWidth: '400px', maxWidth: '400px', position: 'relative', padding: '16px 0' }}>
                                 {loadingHistory[component.name] ? (
                                     <div className="loading-placeholder" />
                                 ) : entityHistories[component.name] ? (

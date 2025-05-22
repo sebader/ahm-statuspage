@@ -78,9 +78,14 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
     const blocks = getLast24HoursBlocks();
 
     return (
-        <div className="timeline-blocks">
+        <div className="timeline-wrapper">
             <style>
                 {`
+                    .timeline-wrapper {
+                        position: relative;
+                        width: 100%;
+                        overflow: hidden;
+                    }
                     .timeline-blocks {
                         display: flex;
                         gap: 2px;
@@ -88,6 +93,25 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
                         border-radius: 4px;
                         position: relative;
                         isolation: isolate;
+                        overflow-x: auto;
+                        overflow-y: hidden;
+                        white-space: nowrap;
+                        padding: 0 16px 6px;
+                        scrollbar-width: thin;
+                        scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+                    }
+                    
+                    .timeline-blocks::-webkit-scrollbar {
+                        height: 6px;
+                    }
+                    
+                    .timeline-blocks::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+                    
+                    .timeline-blocks::-webkit-scrollbar-thumb {
+                        background-color: rgba(155, 155, 155, 0.5);
+                        border-radius: 3px;
                     }
                     .timeline-block {
                         flex: 1;
@@ -128,22 +152,24 @@ const TimelineBlocks: React.FC<TimelineBlocksProps> = ({ history, blockSize }) =
                     }
                 `}
             </style>
+            <div className="timeline-blocks">
                 {blocks.map((block, index) => (
-                <div
-                    key={index}
-                    className="timeline-block"
-                    style={{ backgroundColor: getStatusColor(block.status) }}
-                    onMouseMove={handleMouseMove}
-                >
-                    <div className="timeline-tooltip-wrapper">
-                        <div className="timeline-tooltip">
-                            <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{block.status}</div>
-                            <div>{block.startTime.toLocaleDateString()}</div>
-                            <div>{block.startTime.toLocaleTimeString()} - {block.endTime.toLocaleTimeString()}</div>
+                    <div
+                        key={index}
+                        className="timeline-block"
+                        style={{ backgroundColor: getStatusColor(block.status) }}
+                        onMouseMove={handleMouseMove}
+                    >
+                        <div className="timeline-tooltip-wrapper">
+                            <div className="timeline-tooltip">
+                                <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{block.status}</div>
+                                <div>{block.startTime.toLocaleDateString()}</div>
+                                <div>{block.startTime.toLocaleTimeString()} - {block.endTime.toLocaleTimeString()}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };
