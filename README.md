@@ -107,7 +107,7 @@ The application is designed to be deployed to Azure Static Web Apps with an Azur
 1. **Run with Static Web Apps CLI**
    ```bash
    # In the root directory
-   swa start app/build --api-location api
+   swa start --api-location api --run "npm run build"
    ```
 
 This will start the Static Web Apps CLI, serving your application at `http://localhost:4280`. The CLI provides a local development environment that closely mirrors the Azure Static Web Apps production environment.
