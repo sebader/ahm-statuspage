@@ -88,6 +88,30 @@ function App() {
             text-align: center;
             margin: 1rem 0;
           }
+          .refresh-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            color: ${appConfig.theme.primaryColor};
+            font-size: 1.2rem;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+          }
+          .refresh-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
+          .status-section {
+            position: relative;
+          }
+          .status-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+          }
         `}
       </style>
       <div className="header">
@@ -100,7 +124,21 @@ function App() {
       ) : error ? (
         <div className="error">{error}</div>
       ) : (
-        <StatusTable components={components} />
+        <div className="status-section">
+          <div className="status-header">
+            <button 
+              className="refresh-button" 
+              onClick={() => {
+                setLoading(true);
+                fetchStatuses();
+              }}
+              aria-label="Refresh status"
+            >
+              ↻
+            </button>
+          </div>
+          <StatusTable components={components} />
+        </div>
       )}
       <div className="footer">
         <div className="company-name">© {new Date().getFullYear()} {appConfig.companyName}</div>
